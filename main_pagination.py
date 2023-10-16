@@ -84,19 +84,19 @@ def get_data():
         }
 
         response = s.get('https://www.mvideo.ru/bff/products/prices', params=params, cookies=cookies,
-                            headers=headers).json()
+                         headers=headers).json()
 
         material_prices = response.get('body').get('materialPrices')
 
         for item in material_prices:
-            item_id = item.get('price').get('productID')
+            item_id = item.get('price').get('productId')
             item_base_price = item.get('price').get('basePrice')
             item_sale_price = item.get('price').get('salePrice')
-            item_bonus = item.get('price').get('total')
+            item_bonus = item.get('bonusRubles').get('total')
 
             products_prices[item_id] = {
-                "item_base_price": item_base_price,
-                "item_sale_price": item_sale_price,
+                "item_basePrice": item_base_price,
+                "item_salePrice": item_sale_price,
                 "item_bonus": item_bonus
             }
         print(f'Finished {i + 1} of the {count_pages} pages.')
